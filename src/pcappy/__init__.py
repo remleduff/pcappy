@@ -276,6 +276,20 @@ class PcapPyBpfProgram(object):
 
     mask = netmask
 
+    def match(self, packet, length=None, caplen=None):
+        pkt = str(packet)
+        hdr = pcap_pkthdr()
+        if length is None:
+            length = len(pkt)
+        if caplen is None:
+            caplen = length
+        hdr.len = length
+        hdr.caplen = caplen
+        return pcap_offline_filter(pointer(self._bpf), pointer(hdr), pkt)
+
+    def dump(self, options=0):
+        bpf_dump(self._bpf, options)
+
     def __del__(self):
         if self._bpf:
             pcap_freecode(pointer(self._bpf))

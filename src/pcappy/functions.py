@@ -144,6 +144,9 @@ load_func('pcap_compile', c_int, [ pcap_t_ptr, bpf_program_ptr, c_char_p, c_int,
 load_func('pcap_compile_nopcap', c_int, [ c_int, c_int, bpf_program_ptr, c_char_p, c_int, c_uint32 ])
 
 
+load_func('bpf_dump', argtypes=[ bpf_program_ptr, c_int ])
+
+
 load_func('pcap_freecode', argtypes=[ bpf_program_ptr ])
 
 
